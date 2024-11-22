@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    image: mansalien/drf_start:v0.2
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      - postgres_db
+    restart: always
+
+  postgres_db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${P_DATABASE}
+      - POSTGRES_USER=${P_USER}
+      - POSTGRES_PASSWORD=${P_PASSWORD}
+    restart: always
+
+volumes:
+  postgres_data:
+
+
