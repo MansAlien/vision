@@ -1,7 +1,8 @@
+from datetime import date
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from datetime import date
 
 
 class JobTitle(models.Model):

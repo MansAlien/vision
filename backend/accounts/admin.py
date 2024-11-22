@@ -1,5 +1,6 @@
 from django.contrib import admin
-from accounts.models import UserProfile, JobTitle, City, Country, Governorate
+
+from accounts.models import City, Country, Governorate, JobTitle, UserProfile
 
 
 # Register your models here.
