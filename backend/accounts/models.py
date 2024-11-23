@@ -24,8 +24,8 @@ class Country(models.Model):
 
 class Governorate(models.Model):
     """Model to represent job governorate within a country."""
-    name = models.CharField(max_length=255)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -33,8 +33,8 @@ class Governorate(models.Model):
 
 class City(models.Model):
     """Model to represent job city within a governorate."""
-    name = models.CharField(max_length=255)
     governorate = models.ForeignKey(Governorate, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
