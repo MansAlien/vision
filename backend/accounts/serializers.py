@@ -56,13 +56,37 @@ class CitySerializer(serializers.ModelSerializer):
         fields = ('governorate', 'name')
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserProfileDetailSerializer(serializers.ModelSerializer):
     """
-    Serializer for the UserProfile model.
-    Includes nested serializers for job title and city relationships.
+    Serializer for retrieving UserProfile details (GET requests).
+    Includes nested relationships.
     """
-    job_title = JobTitleSerializer()
-    city = CitySerializer()
+    user = serializers.CharField(source = 'user.username')
+    country = serializers.CharField(source="city.governorate.country.name")
+    governorate = serializers.CharField(source="city.governorate.name")
+    city = serializers.CharField(source="city.name")
+    job_title = serializers.CharField(source="job_title.name")
+    class Meta:
+        model = UserProfile
+        fields = (
+            'user',
+            'job_title',
+            'country',
+            'governorate',
+            'city',
+            'age',
+            'date_of_birth',
+            'start',
+            'address',
+            'gender',
+            'salary'
+        )
+
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating UserProfile (POST, PUT, PATCH, DELETE requests).
+    Does not include nested relationships.
+    """
     class Meta:
         model = UserProfile
         fields = (
@@ -84,7 +108,7 @@ class JobTitleHistorySerializer(serializers.ModelSerializer):
     Tracks job title changes over time for a UserProfile.
     """
     job_title = JobTitleSerializer()
-    user_profile = UserProfileSerializer()
+    # user_profile = UserProfileSerializer()
     class Meta:
         model = JobTitleHistory
         fields = ('job_title', 'user_profile', 'start', 'end')
@@ -95,7 +119,7 @@ class SalaryHistorySerializer(serializers.ModelSerializer):
     Serializer for SalaryHistory.
     Tracks salary changes over time for a UserProfile.
     """
-    user_profile = UserProfileSerializer()
+    # user_profile = UserProfileSerializer()
     class Meta:
         model = SalaryHistory
         fields = ('amount', 'user_profile', 'start', 'end')
@@ -106,7 +130,7 @@ class DeductionSerializer(serializers.ModelSerializer):
     Serializer for Deduction.
     Represents salary deductions for a UserProfile.
     """
-    user_profile = UserProfileSerializer()
+    # user_profile = UserProfileSerializer()
     class Meta:
         model = Deduction
         fields = ('user_profile', 'name', 'amount', 'date', 'discription')
