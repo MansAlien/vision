@@ -33,24 +33,43 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = ('name',)
 
+class GovernorateDetailSerializer(serializers.ModelSerializer):
+    """
+    Serializer for retrieving Governorate details (GET requests).
+    Includes nested relationships.
+    """
+    country = serializers.CharField(source= "country.name")
+    class Meta:
+        model = Governorate
+        fields = ('country', 'name')
 
-class GovernorateSerializer(serializers.ModelSerializer):
+class GovernorateUpdateSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Governorate model.
-    Includes a reference to the related Country.
+    Serializer for updating Governorate (POST, PUT, PATCH, DELETE requests).
+    Does not include nested relationships.
     """
-    country = CountrySerializer()
     class Meta:
         model = Governorate
         fields = ('country', 'name')
 
 
-class CitySerializer(serializers.ModelSerializer):
+class CityDetailSerializer(serializers.ModelSerializer):
     """
-    Serializer for the City model.
-    Includes a reference to the related Governorate.
+    Serializer for retrieving City details (GET requests).
+    Includes nested relationships.
     """
-    governorate = GovernorateSerializer()
+    country = serializers.CharField(source="governorate.country.name")
+    governorate = serializers.CharField(source="governorate.name")
+    class Meta:
+        model = City
+        fields = ('country', 'governorate', 'name')
+
+
+class CityUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating City (POST, PUT, PATCH, DELETE requests).
+    Does not include nested relationships.
+    """
     class Meta:
         model = City
         fields = ('governorate', 'name')
