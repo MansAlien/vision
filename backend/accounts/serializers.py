@@ -144,12 +144,22 @@ class SalaryHistorySerializer(serializers.ModelSerializer):
         fields = ('amount', 'user_profile', 'start', 'end')
 
 
-class DeductionSerializer(serializers.ModelSerializer):
+class DeductionDetailSerializer(serializers.ModelSerializer):
     """
-    Serializer for Deduction.
-    Represents salary deductions for a UserProfile.
+    Serializer for retrieving Deduction details (GET requests).
+    Includes nested relationships.
     """
-    # user_profile = UserProfileSerializer()
+    user_profile = serializers.CharField(source = 'user_profile.user.username')
+    class Meta:
+        model = Deduction
+        fields = ('user_profile', 'name', 'amount', 'date', 'discription')
+
+
+class DeductionUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for updating Deduction (POST, PUT, PATCH, DELETE requests).
+    Does not include nested relationships.
+    """
     class Meta:
         model = Deduction
         fields = ('user_profile', 'name', 'amount', 'date', 'discription')
