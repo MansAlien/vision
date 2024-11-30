@@ -126,8 +126,8 @@ class JobTitleHistorySerializer(serializers.ModelSerializer):
     Serializer for JobTitleHistory.
     Tracks job title changes over time for a UserProfile.
     """
-    job_title = JobTitleSerializer()
-    # user_profile = UserProfileSerializer()
+    job_title = serializers.CharField(source = "job_title.name")
+    user_profile = serializers.CharField(source = 'user_profile.user.username')
     class Meta:
         model = JobTitleHistory
         fields = ('job_title', 'user_profile', 'start', 'end')
@@ -138,7 +138,7 @@ class SalaryHistorySerializer(serializers.ModelSerializer):
     Serializer for SalaryHistory.
     Tracks salary changes over time for a UserProfile.
     """
-    # user_profile = UserProfileSerializer()
+    user_profile = serializers.CharField(source = 'user_profile.user.username')
     class Meta:
         model = SalaryHistory
         fields = ('amount', 'user_profile', 'start', 'end')
@@ -182,6 +182,6 @@ class BlacklistedAccessTokenSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = BlacklistedAccessToken
-        fields = ('token')
+        fields = ('token',)
 
 

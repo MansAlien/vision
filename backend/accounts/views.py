@@ -98,3 +98,34 @@ class DeductionViewSet(viewsets.ModelViewSet):
         return DeductionUpdateSerializer
 
 
+class BlackListViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing BlackListedAccessToken objects.
+    """
+    queryset = BlacklistedAccessToken.objects.all()
+    serializer_class = BlacklistedAccessTokenSerializer
+
+
+class JobTitleHistoryViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing JobTitleHistory objects.
+    """
+    queryset = JobTitleHistory.objects.select_related("user_profile", "job_title").all()
+    serializer_class = JobTitleHistorySerializer
+
+
+class SalaryHistoryViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing SalaryHistory objects.
+    """
+    queryset = SalaryHistory.objects.select_related("user_profile").all()
+    serializer_class = SalaryHistorySerializer
+
+
+class LoggedInUserViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for managing LoggedInUser objects.
+    """
+    queryset = LoggedInUser.objects.all()
+    serializer_class = LoggedInUserSerializer
+
