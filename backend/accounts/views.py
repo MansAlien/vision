@@ -112,6 +112,7 @@ class JobTitleHistoryViewSet(viewsets.ModelViewSet):
     """
     queryset = JobTitleHistory.objects.select_related("user_profile", "job_title").all()
     serializer_class = JobTitleHistorySerializer
+    http_method_names = ['get']
 
 
 class SalaryHistoryViewSet(viewsets.ModelViewSet):
@@ -120,6 +121,7 @@ class SalaryHistoryViewSet(viewsets.ModelViewSet):
     """
     queryset = SalaryHistory.objects.select_related("user_profile").all()
     serializer_class = SalaryHistorySerializer
+    http_method_names = ['get']
 
 
 class LoggedInUserViewSet(viewsets.ModelViewSet):
