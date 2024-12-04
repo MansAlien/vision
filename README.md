@@ -11,13 +11,13 @@ A powerful Django REST Framework starter project with modern features and best p
 ## ✨ Features
 
 ### Backend 🔧
-- **🔐 JWT Authentication**: Secure user authentication with JSON Web Tokens
+- **⚡ JWT Authentication**: Secure user authentication with JSON Web Tokens
 - **📊 Silk Profiling**: Performance monitoring and request profiling
 - **🔍 Advanced Filtering**: Powerful API endpoint filtering with django-filter
-- **🎯 REST API**: Fully featured REST API using Django REST Framework
+- **⚙️ REST API**: Fully featured REST API using Django REST Framework
 
 ### DevOps 🛠
-- **🐳 Docker Support**: Containerized development and deployment
+- **🛳️ Docker Support**: Containerized development and deployment
 - **🔄 CI/CD Ready**: Prepared for continuous integration/deployment
 - **📝 Code Quality**: Integrated with Ruff for code linting
 
