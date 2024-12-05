@@ -117,7 +117,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         DjangoFilterBackend
     ]
     search_fields = ['user__username', 'user__email', 'address']
-    ordering_fields = ['age', 'salary', 'start']
+    ordering_fields = ['date_of_birth', 'salary', 'start']
     ordering = ['-start']  # Default ordering
     pagination_class = StandardResultsSetPagination
     permission_classes = [IsAuthenticated]
