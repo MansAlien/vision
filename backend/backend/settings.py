@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^p-p(^&0_-o*2kk*6-^p*f(73y)^#$xpo6f!zbzs1pvgi)0c$)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
 if ALLOWED_HOSTS:
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,23 +88,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     )
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('P_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('P_DATABASE'),
-        'USER': os.getenv('P_USER'),
-        'PASSWORD': os.getenv('P_PASSWORD'),
-        'HOST': os.getenv('P_HOST', 'localhost'),
-        'PORT': os.getenv('P_PORT', '5432'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': os.getenv('P_ENGINE', 'django.db.backends.postgresql'),
+#         'NAME': os.getenv('P_DATABASE'),
+#         'USER': os.getenv('P_USER'),
+#         'PASSWORD': os.getenv('P_PASSWORD'),
+#         'HOST': os.getenv('P_HOST', 'localhost'),
+#         'PORT': os.getenv('P_PORT', '5432'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -140,7 +141,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC FILE CONFIGURATION
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Enable Gzip/Compressed responses and add additional static file storage
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
